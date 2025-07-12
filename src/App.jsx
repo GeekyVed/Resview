@@ -1,5 +1,7 @@
 import { Download, Mail } from "lucide-react";
 
+const resumeURL = import.meta.env.VITE_RESUME_URL;
+
 function App() {
   return (
     <div style={styles.app}>
@@ -11,14 +13,14 @@ function App() {
         <div style={styles.pdfWrapper}>
           <div style={styles.pdfContainer}>
             <object
-              data="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+              data={`${resumeURL}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
               type="application/pdf"
               style={styles.pdfEmbed}
             >
               <div style={styles.fallback}>
                 <p>
                   Unable to display PDF.{" "}
-                  <a href="/resume.pdf" target="_blank">
+                  <a href={resumeURL} target="_blank">
                     Click here to view
                   </a>
                 </p>
@@ -31,7 +33,7 @@ function App() {
       {/* Fixed Icon Panel */}
       <div style={styles.iconPanel}>
         <a
-          href="/resume.pdf"
+          href={resumeURL}
           download
           style={styles.iconButton}
           title="Download Resume"
