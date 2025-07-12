@@ -31,20 +31,16 @@ build/
 ehthumbs.db
 Thumbs.db
 
-# Logs
 *.log
 logs/
 
-# Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
 
-# Coverage directory used by tools like istanbul
 coverage/
 *.lcov
 
-# Temporary folders
 tmp/
 temp/
