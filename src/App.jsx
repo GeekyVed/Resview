@@ -57,7 +57,7 @@ function App() {
   }
 
   const handleEmail = () => {
-    const subject = 'Resume Inquiry'
+    const subject = 'Resume Inquiry '
     const body = `Hi ${config.firstName},\n\nI found your resume on your website and would like to get in touch.\n\nBest regards`
     
     const mailtoUrl = `mailto:${config.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
