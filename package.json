@@ -1,8 +1,25 @@
 {
-  "name": "resume-viewer",
+  "name": "resview",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A modern, elegant resume viewer web application built with React and Vite. Perfect for showcasing your resume in a professional, interactive format with customizable branding and easy deployment.",
+  "main": "src/main.jsx",
   "type": "module",
+  "keywords": ["resume", "portfolio", "react", "vite", "cv", "professional", "showcase"],
+  "author": {
+    "name": "Vedant Singh Chauhan",
+    "email": "vedantc252@gmail.com",
+    "url": "https://github.com/GeekyVed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GeekyVed/Resview.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GeekyVed/Resview/issues"
+  },
+  "homepage": "https://github.com/GeekyVed/Resview#readme",
+  "license": "ISC",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,19 +27,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "lucide-react": "^0.525.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.30.1",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.6.0",
-    "eslint": "^9.30.1",
+    "@eslint/js": "^9.33.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "vite": "^7.0.4"
+    "vite": "^7.1.2"
   }
 }
