@@ -1,0 +1,44 @@
+name: Update Resume PDF
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Every 24 hours at midnight
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-pdf:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Download latest PDF
+        env:
+          VITE_GOOGLE_DOC_ID: ${{ secrets.VITE_GOOGLE_DOC_ID }}
+        run: npm run update-resume
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add public/resume.pdf
+          
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to resume.pdf."
+          else
+            git commit -m "chore: auto-update resume PDF [skip ci]"
+            git push
+            echo "Successfully updated and pushed resume.pdf."
+          fi

@@ -5,7 +5,15 @@
   "description": "A modern, elegant resume viewer web application built with React and Vite. Perfect for showcasing your resume in a professional, interactive format with customizable branding and easy deployment.",
   "main": "src/main.jsx",
   "type": "module",
-  "keywords": ["resume", "portfolio", "react", "vite", "cv", "professional", "showcase"],
+  "keywords": [
+    "resume",
+    "portfolio",
+    "react",
+    "vite",
+    "cv",
+    "professional",
+    "showcase"
+  ],
   "author": {
     "name": "Vedant Singh Chauhan",
     "email": "vedantc252@gmail.com",
@@ -24,11 +32,14 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "update-resume": "node scripts/download-pdf.js",
+    "prebuild": "npm run update-resume"
   },
   "dependencies": {
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-pdf": "^10.4.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
