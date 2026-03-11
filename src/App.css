@@ -12,16 +12,19 @@
 .resume-content {
   width: 100%;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   background: transparent;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .resume-content iframe {
   width: 100%;
-  height: 1000px;
+  height: 1120px;
   border: none;
   transform-origin: center top;
   transition: transform 0.3s ease;
+  overflow: hidden;
 }
 
 .action-buttons {
@@ -69,7 +72,7 @@
   }
 
   .resume-content iframe {
-    height: 650px;
+    height: 750px;
   }
 
   .action-buttons {

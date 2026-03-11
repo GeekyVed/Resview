@@ -6,22 +6,37 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(-45deg,
+      #ff758c,
+      #ff7eb3,
+      #71b280,
+      #134e5e,
+      #fca311,
+      #8e2de2,
+      #4a00e0);
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
   min-height: 100vh;
   color: #333;
   line-height: 1.6;
 }
 
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 #root {
   min-height: 100vh;
-}
-
-#resumeFrame body {
-  background: transparent !important;
-}
-
-.kix-rotatingtilemanager {
-  background: transparent !important;
 }
 
 /* Disable webkit scrollbar styles */
