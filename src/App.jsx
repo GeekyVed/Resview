@@ -125,7 +125,7 @@ function App() {
               renderTextLayer={true}
               renderAnnotationLayer={true}
               className="resume-pdf-page"
-              width={containerWidth ? Math.min(containerWidth, 1000) : undefined}
+              width={containerWidth ? Math.min(containerWidth * 0.9, 900) : undefined}
             />
           ))}
         </Document>
