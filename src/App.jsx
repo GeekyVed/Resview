@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -9,9 +9,22 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString()
 
+const config = {
+  title: import.meta.env.VITE_TITLE || '${TITLE}',
+  description: import.meta.env.VITE_DESCRIPTION || '${DESCRIPTION}',
+  image: import.meta.env.VITE_IMAGE || '${IMAGE}',
+  url: import.meta.env.VITE_URL || '${URL}',
+  googleDocUrl: import.meta.env.VITE_GOOGLE_DOC_URL || '${GOOGLE_DOC_URL}',
+  googleDocId: import.meta.env.VITE_GOOGLE_DOC_ID || '${GOOGLE_DOC_ID}',
+  contactEmail: import.meta.env.VITE_CONTACT_EMAIL || '${CONTACT_EMAIL}',
+  firstName: import.meta.env.VITE_FIRST_NAME || '${FIRST_NAME}',
+  resumeFilename: import.meta.env.VITE_RESUME_FILENAME || '${RESUME_FILENAME}'
+}
+
 function App() {
   const [numPages, setNumPages] = useState(null)
   const [containerWidth, setContainerWidth] = useState(null)
+  const hasHandledDownloadRoute = useRef(false)
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages)
@@ -29,18 +42,6 @@ function App() {
     window.addEventListener('resize', updateWidth)
     return () => window.removeEventListener('resize', updateWidth)
   }, [])
-
-  const config = {
-    title: import.meta.env.VITE_TITLE || '${TITLE}',
-    description: import.meta.env.VITE_DESCRIPTION || '${DESCRIPTION}',
-    image: import.meta.env.VITE_IMAGE || '${IMAGE}',
-    url: import.meta.env.VITE_URL || '${URL}',
-    googleDocUrl: import.meta.env.VITE_GOOGLE_DOC_URL || '${GOOGLE_DOC_URL}',
-    googleDocId: import.meta.env.VITE_GOOGLE_DOC_ID || '${GOOGLE_DOC_ID}',
-    contactEmail: import.meta.env.VITE_CONTACT_EMAIL || '${CONTACT_EMAIL}',
-    firstName: import.meta.env.VITE_FIRST_NAME || '${FIRST_NAME}',
-    resumeFilename: import.meta.env.VITE_RESUME_FILENAME || '${RESUME_FILENAME}'
-  }
 
   useEffect(() => {
     document.title = config.title
@@ -70,11 +71,16 @@ function App() {
     updateMetaTag('twitter:title', config.title)
     updateMetaTag('twitter:description', config.description)
     updateMetaTag('twitter:image', config.image)
-  }, [config])
+  }, [])
 
-  const handleDownload = async () => {
+  const handleDownload = useCallback(async () => {
     try {
       const response = await fetch('/resume.pdf')
+
+      if (!response.ok) {
+        throw new Error(`Failed to download resume: ${response.status}`)
+      }
+
       const blob = await response.blob()
       const url = window.URL.createObjectURL(blob)
       const link = document.createElement('a')
@@ -94,6 +100,25 @@ function App() {
       link.click()
       document.body.removeChild(link)
     }
+  }, [])
+
+  useEffect(() => {
+    const path = window.location.pathname.replace(/\/+$/, '') || '/'
+
+    if (path === '/download' && !hasHandledDownloadRoute.current) {
+      hasHandledDownloadRoute.current = true
+      void handleDownload()
+    }
+  }, [handleDownload])
+
+  const handleDownloadNavigation = (event) => {
+    event.preventDefault()
+
+    if (window.location.pathname !== '/download') {
+      window.history.pushState(null, '', '/download')
+    }
+
+    void handleDownload()
   }
 
   const handleEmail = () => {
@@ -146,18 +171,19 @@ function App() {
       </div>
 
       <div className="action-buttons">
-        <button
+        <a
           id="downloadBtn"
           className="btn btn-primary"
           title="Download PDF"
-          onClick={handleDownload}
+          href="/download"
+          onClick={handleDownloadNavigation}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="7,10 12,15 17,10" />
             <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
-        </button>
+        </a>
         <button
           id="emailBtn"
           className="btn btn-secondary"

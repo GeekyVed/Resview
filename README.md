@@ -9,6 +9,7 @@ A modern, elegant resume viewer web application built with **React** and **Vite*
 - **⚡ Fast**: Built with Vite for lightning-fast development and builds
 - **🔧 Customizable**: Easy configuration through environment variables
 - **📧 Interactive**: Direct download and email contact buttons
+- **🔗 Shareable Download Route**: `/download` starts the PDF download while keeping the resume viewer visible
 - **🌍 SEO Friendly**: Built-in Open Graph and Twitter Card support
 - **🚀 Deploy Ready**: Ready for deployment to Vercel, Netlify, or any static host
 
